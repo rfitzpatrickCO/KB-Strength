@@ -67,8 +67,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      {/* Scrollable content area above nav */}
-      <div className="pb-20 overflow-y-auto min-h-screen">
+      {/* Scrollable content area — pt-safe clears the iOS status bar */}
+      <div className="pt-safe pb-20 overflow-y-auto min-h-screen">
         {page === 'home' && (
           <Dashboard
             logs={logs}
