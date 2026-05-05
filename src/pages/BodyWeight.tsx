@@ -58,8 +58,8 @@ export default function BodyWeight({ entries, onSave, onDelete }: Props) {
         <h3 className="font-semibold text-white flex items-center gap-2">
           <Plus className="w-4 h-4 text-orange-400" /> Log Weight
         </h3>
-        <div className="flex gap-3">
-          <div className="flex-1 space-y-1">
+        <div className="space-y-3">
+          <div className="space-y-1">
             <label className="text-xs text-slate-400">Weight (lbs)</label>
             <input
               type="number"
@@ -68,16 +68,16 @@ export default function BodyWeight({ entries, onSave, onDelete }: Props) {
               value={weight}
               onChange={e => setWeight(e.target.value)}
               placeholder="e.g. 185.5"
-              className="w-full bg-slate-700 text-white rounded-xl px-3 py-3 text-base"
+              className="w-full bg-slate-700 text-white rounded-xl px-3 py-3 text-base box-border"
             />
           </div>
-          <div className="flex-1 space-y-1">
+          <div className="space-y-1">
             <label className="text-xs text-slate-400">Date</label>
             <input
               type="date"
               value={date}
               onChange={e => setDate(e.target.value)}
-              className="w-full bg-slate-700 text-white rounded-xl px-3 py-3 text-sm"
+              className="w-full bg-slate-700 text-white rounded-xl px-3 py-3 text-base box-border"
             />
           </div>
         </div>

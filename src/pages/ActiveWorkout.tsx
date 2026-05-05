@@ -17,7 +17,7 @@ function initLog(template: WorkoutTemplate, existing?: WorkoutLog): WorkoutLog {
   return {
     id: generateId(),
     date: new Date().toISOString().split('T')[0],
-    startTime: new Date().toISOString(),
+    startTime: '', // empty until user explicitly taps Start
     templateType: template.type,
     templateName: template.name,
     exercises: template.exercises.map((pe) => ({
@@ -273,17 +273,27 @@ export default function ActiveWorkout({ template, existingLog, onSave, onDiscard
   const [elapsed, setElapsed] = useState(0)
   const [showConfirmDiscard, setShowConfirmDiscard] = useState(false)
 
+  const hasStarted = !!log.startTime
+
+  // Timer only runs once the user explicitly starts the workout
   useEffect(() => {
+    if (!hasStarted) return
     const start = new Date(log.startTime).getTime()
+    setElapsed(Math.floor((Date.now() - start) / 1000))
     const tick = setInterval(() => setElapsed(Math.floor((Date.now() - start) / 1000)), 1000)
     return () => clearInterval(tick)
-  }, [log.startTime])
+  }, [hasStarted, log.startTime])
 
-  // Auto-save every 30s
+  // Auto-save every 30s — only after the workout has started
   useEffect(() => {
+    if (!hasStarted) return
     const t = setInterval(() => onSave(log), 30000)
     return () => clearInterval(t)
-  }, [log, onSave])
+  }, [hasStarted, log, onSave])
+
+  const startWorkout = () => {
+    setLog(prev => ({ ...prev, startTime: new Date().toISOString() }))
+  }
 
   const updateExercise = useCallback((updated: WorkoutExerciseLog) => {
     setLog(prev => {
@@ -311,15 +321,30 @@ export default function ActiveWorkout({ template, existingLog, onSave, onDiscard
           <h2 className="text-lg font-bold text-white">{log.templateName}</h2>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1 text-slate-400 text-sm">
-            <Clock className="w-4 h-4" />
-            {formatDuration(elapsed)}
-          </div>
+          {hasStarted ? (
+            <div className="flex items-center gap-1 text-slate-400 text-sm tabular-nums">
+              <Clock className="w-4 h-4" />
+              {formatDuration(elapsed)}
+            </div>
+          ) : (
+            <div className="text-xs text-slate-500 italic">Not started</div>
+          )}
           <button onClick={() => setShowConfirmDiscard(true)} className="text-slate-500 hover:text-slate-300">
             <X className="w-5 h-5" />
           </button>
         </div>
       </div>
+
+      {/* Start CTA — only shown before the user begins */}
+      {!hasStarted && (
+        <button
+          onClick={startWorkout}
+          className="w-full bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white font-bold py-4 rounded-2xl text-base transition-colors flex items-center justify-center gap-2"
+        >
+          <Clock className="w-5 h-5" />
+          Start Workout
+        </button>
+      )}
 
       {/* Progress bar */}
       <div>
@@ -342,13 +367,15 @@ export default function ActiveWorkout({ template, existingLog, onSave, onDiscard
         ))}
       </div>
 
-      {/* Finish button */}
-      <button
-        onClick={finish}
-        className="w-full bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white font-bold py-4 rounded-2xl text-base transition-colors"
-      >
-        {progress >= 1 ? '🎉 Complete Workout' : 'Save & Finish Early'}
-      </button>
+      {/* Finish button — only after workout has started */}
+      {hasStarted && (
+        <button
+          onClick={finish}
+          className="w-full bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white font-bold py-4 rounded-2xl text-base transition-colors"
+        >
+          {progress >= 1 ? '🎉 Complete Workout' : 'Save & Finish Early'}
+        </button>
+      )}
 
       {/* Discard modal */}
       {showConfirmDiscard && (
