@@ -60,29 +60,29 @@ function ExerciseChart({ exerciseId, logs }: { exerciseId: string; logs: Workout
   const unit = ex.unit === 'weight_reps' ? 'kg' : ex.unit === 'reps_only' ? 'reps' : 's'
 
   return (
-    <div className="bg-slate-800 rounded-2xl p-4 space-y-2">
-      <h3 className="text-white font-semibold text-sm">{ex.name}</h3>
+    <div className="bg-brand-surface rounded-2xl p-4 space-y-2">
+      <h3 className="text-brand-smoke font-semibold text-sm">{ex.name}</h3>
       <ResponsiveContainer width="100%" height={120}>
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-          <XAxis dataKey="date" tick={{ fill: '#94a3b8', fontSize: 10 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#3A3A3A" />
+          <XAxis dataKey="date" tick={{ fill: '#6E7378', fontSize: 10 }} />
           <YAxis
-            tick={{ fill: '#94a3b8', fontSize: 10 }}
+            tick={{ fill: '#6E7378', fontSize: 10 }}
             unit={unit}
             width={40}
           />
           <Tooltip
-            contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }}
-            labelStyle={{ color: '#94a3b8' }}
-            itemStyle={{ color: '#f97316' }}
+            contentStyle={{ background: '#242424', border: '1px solid #3A3A3A', borderRadius: 8 }}
+            labelStyle={{ color: '#6E7378' }}
+            itemStyle={{ color: '#CC1F1F' }}
             formatter={(v: number) => [`${v}${unit}`, ex.name]}
           />
           <Line
             type="monotone"
             dataKey="value"
-            stroke="#f97316"
+            stroke="#CC1F1F"
             strokeWidth={2}
-            dot={{ fill: '#f97316', r: 3 }}
+            dot={{ fill: '#CC1F1F', r: 3 }}
             activeDot={{ r: 5 }}
           />
         </LineChart>
@@ -114,19 +114,19 @@ function WorkoutFrequencyChart({ logs }: { logs: WorkoutLog[] }) {
   }, [logs])
 
   return (
-    <div className="bg-slate-800 rounded-2xl p-4 space-y-2">
-      <h3 className="text-white font-semibold text-sm">Workouts per Week</h3>
+    <div className="bg-brand-surface rounded-2xl p-4 space-y-2">
+      <h3 className="text-brand-smoke font-semibold text-sm">Workouts per Week</h3>
       <ResponsiveContainer width="100%" height={120}>
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-          <XAxis dataKey="week" tick={{ fill: '#94a3b8', fontSize: 10 }} />
-          <YAxis tick={{ fill: '#94a3b8', fontSize: 10 }} allowDecimals={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#3A3A3A" />
+          <XAxis dataKey="week" tick={{ fill: '#6E7378', fontSize: 10 }} />
+          <YAxis tick={{ fill: '#6E7378', fontSize: 10 }} allowDecimals={false} />
           <Tooltip
-            contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }}
-            labelStyle={{ color: '#94a3b8' }}
-            itemStyle={{ color: '#f97316' }}
+            contentStyle={{ background: '#242424', border: '1px solid #3A3A3A', borderRadius: 8 }}
+            labelStyle={{ color: '#6E7378' }}
+            itemStyle={{ color: '#CC1F1F' }}
           />
-          <Bar dataKey="count" fill="#f97316" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="count" fill="#CC1F1F" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -144,23 +144,23 @@ export default function Progress({ logs, bodyWeights }: Props) {
     return (
       <div className="p-4 flex flex-col items-center justify-center h-64 text-center">
         <div className="text-4xl mb-3">📈</div>
-        <h2 className="text-white font-semibold">Not enough data yet</h2>
-        <p className="text-slate-400 text-sm mt-1">Complete a few workouts and log your weight to see charts here.</p>
+        <h2 className="text-brand-smoke font-semibold">Not enough data yet</h2>
+        <p className="text-brand-gray text-sm mt-1">Complete a few workouts and log your weight to see charts here.</p>
       </div>
     )
   }
 
   return (
     <div className="p-4 space-y-4">
-      <h2 className="text-xl font-bold text-white">Progress</h2>
+      <h2 className="text-xl font-bold text-brand-smoke">Progress</h2>
 
       {/* Body weight chart */}
       {bwData.length >= 2 && (
-        <div className="bg-slate-800 rounded-2xl p-4 space-y-2">
-          <h3 className="text-white font-semibold text-sm">Body Weight (lbs)</h3>
-          <div className="flex justify-between text-xs text-slate-400">
+        <div className="bg-brand-surface rounded-2xl p-4 space-y-2">
+          <h3 className="text-brand-smoke font-semibold text-sm">Body Weight (lbs)</h3>
+          <div className="flex justify-between text-xs text-brand-gray">
             <span>Start: {bwData[0].weight} lbs</span>
-            <span className={bwData[bwData.length - 1].weight < bwData[0].weight ? 'text-green-400' : 'text-red-400'}>
+            <span className={bwData[bwData.length - 1].weight < bwData[0].weight ? 'text-brand-gold' : 'text-brand-red-hi'}>
               Now: {bwData[bwData.length - 1].weight} lbs
               {' '}({bwData[bwData.length - 1].weight < bwData[0].weight ? '▼' : '▲'}
               {Math.abs(bwData[bwData.length - 1].weight - bwData[0].weight).toFixed(1)})
@@ -168,16 +168,16 @@ export default function Progress({ logs, bodyWeights }: Props) {
           </div>
           <ResponsiveContainer width="100%" height={140}>
             <LineChart data={bwData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="date" tick={{ fill: '#94a3b8', fontSize: 10 }} />
-              <YAxis tick={{ fill: '#94a3b8', fontSize: 10 }} unit="lb" domain={['dataMin - 2', 'dataMax + 2']} width={42} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#3A3A3A" />
+              <XAxis dataKey="date" tick={{ fill: '#6E7378', fontSize: 10 }} />
+              <YAxis tick={{ fill: '#6E7378', fontSize: 10 }} unit="lb" domain={['dataMin - 2', 'dataMax + 2']} width={42} />
               <Tooltip
-                contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }}
-                labelStyle={{ color: '#94a3b8' }}
-                itemStyle={{ color: '#22c55e' }}
+                contentStyle={{ background: '#242424', border: '1px solid #3A3A3A', borderRadius: 8 }}
+                labelStyle={{ color: '#6E7378' }}
+                itemStyle={{ color: '#F5A800' }}
                 formatter={(v: number) => [`${v} lbs`, 'Weight']}
               />
-              <Line type="monotone" dataKey="weight" stroke="#22c55e" strokeWidth={2} dot={{ fill: '#22c55e', r: 3 }} />
+              <Line type="monotone" dataKey="weight" stroke="#F5A800" strokeWidth={2} dot={{ fill: '#F5A800', r: 3 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -189,7 +189,7 @@ export default function Progress({ logs, bodyWeights }: Props) {
       {/* Strength charts */}
       {logs.length >= 2 && (
         <>
-          <h3 className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Strength Progress</h3>
+          <h3 className="text-brand-gray text-xs font-semibold uppercase tracking-wider">Strength Progress</h3>
           {KB_EXERCISES.map(id => (
             <ExerciseChart key={id} exerciseId={id} logs={logs} />
           ))}

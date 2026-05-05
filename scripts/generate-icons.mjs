@@ -5,7 +5,7 @@ import { writeFileSync } from 'fs'
 const SVG = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <!-- Orange background with rounded corners -->
-  <rect width="512" height="512" rx="96" fill="#f97316"/>
+  <rect width="512" height="512" rx="96" fill="#CC1F1F"/>
 
   <!-- Kettlebell handle (thick outer arch) -->
   <path d="M152,290 L152,218 C152,130 360,130 360,218 L360,290"
@@ -14,7 +14,7 @@ const SVG = `
 
   <!-- Cut out the inside of the handle to make it hollow -->
   <path d="M184,290 L184,224 C184,172 328,172 328,224 L328,290"
-        fill="none" stroke="#f97316" stroke-width="28"
+        fill="none" stroke="#CC1F1F" stroke-width="28"
         stroke-linecap="round" stroke-linejoin="round"/>
 
   <!-- Kettlebell body (large circle) -->
@@ -25,7 +25,7 @@ const SVG = `
 
   <!-- Subtle shading line on ball for depth -->
   <circle cx="256" cy="358" r="134" fill="none"
-          stroke="#f97316" stroke-width="0"/>
+          stroke="#CC1F1F" stroke-width="0"/>
 </svg>
 `
 

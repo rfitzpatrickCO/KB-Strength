@@ -12,8 +12,8 @@ export default defineConfig({
         name: 'KB Tracker – Workout Log',
         short_name: 'KB Tracker',
         description: 'Kettlebell & bodyweight workout tracker with progressive overload',
-        theme_color: '#0f172a',
-        background_color: '#0f172a',
+        theme_color: '#1A1A1A',
+        background_color: '#1A1A1A',
         display: 'standalone',
         orientation: 'portrait',
         icons: [

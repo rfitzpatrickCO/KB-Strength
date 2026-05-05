@@ -66,7 +66,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-brand-black text-brand-smoke">
       {/* Scrollable content area — pt-safe clears the iOS status bar */}
       <div className="pt-safe pb-20 overflow-y-auto min-h-screen">
         {page === 'home' && (

@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-slate-950 text-white;
+    @apply bg-brand-black text-brand-smoke;
     overscroll-behavior: none;
   }
 
